@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Chuck Norris</string>
+    <string name="jokes">Jokes</string>
+    <string name="app_info">App info</string>
+    <string name="count">Count</string>
+    <string name="reload">Reload</string>
+    <string name="url">url</string>
+    <string name="web">Web</string>
+    <string name="go">Go</string>
+</resources>

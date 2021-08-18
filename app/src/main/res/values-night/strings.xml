@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_info">App info</string>
+    <string name="count">Count</string>
+    <string name="reload">Reload</string>
+    <string name="google_com">google.com</string>
+    <string name="url">https://www.icndb.com/api/</string>
+    <string name="web">Web</string>
+    <string name="go">Go</string>
+</resources>
