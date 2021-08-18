@@ -34,6 +34,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes) {
             btnReload.setOnClickListener {
                 if (it.toString().isNotBlank()) {
                     viewModel.getJokes(etCount.text.toString().toInt())
+                    etCount.clearFocus()
                 }
             }
 
