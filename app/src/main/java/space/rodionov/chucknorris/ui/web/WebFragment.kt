@@ -29,16 +29,14 @@ class WebFragment : Fragment(R.layout.fragment_web) {
         binding.apply {
             webView.webViewClient = wvClient
             webView.webViewClient = object : WebViewClient() {
-//                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?) = true
-
                 override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
                     viewModel.setCurUrl(url)
                     viewModel.setInputUrl(url)
+                    webView.requestFocus()
                     super.doUpdateVisitedHistory(view, url, isReload)
                 }
             }
 
-//            webView.settings.javaScriptEnabled = true
             webView.settings.loadWithOverviewMode = true
             webView.settings.useWideViewPort = true
 
@@ -55,8 +53,6 @@ class WebFragment : Fragment(R.layout.fragment_web) {
                         if (webView != null) {
                             if (webView.canGoBack()) {
                                 webView.goBack()
-//                                viewModel.setInputUrl(webView.url)
-//                                viewModel.setCurUrl(webView.url)
                             } else {
                                 activity?.let {
                                     it.onBackPressed()
@@ -81,18 +77,6 @@ class WebFragment : Fragment(R.layout.fragment_web) {
 
         val inputUrl = viewModel.inputUrl.value
 
-//        browseItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
-//            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-//                if (inputUrl != null && inputUrl.isNotEmpty()) {
-//                    browseLine.setQuery(inputUrl, false)
-//                }
-//                return true
-//            }
-//
-//            override fun onMenuItemActionCollapse(p0: MenuItem?) = true
-//
-//        })
-
         if (inputUrl != null && inputUrl.isNotEmpty()) {
             browseItem.expandActionView()
             browseLine.setQuery(inputUrl, false)
@@ -112,7 +96,15 @@ class WebFragment : Fragment(R.layout.fragment_web) {
             }
 
         })
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.urlFlow.collect {
+                val curUrl = it ?: return@collect
+                browseLine.setQuery(curUrl, false)
+            }
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

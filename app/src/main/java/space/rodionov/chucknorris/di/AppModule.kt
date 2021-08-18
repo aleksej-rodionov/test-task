@@ -38,7 +38,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideVkApi(retrofit: Retrofit): ChuckNorrisApi =
+    fun provideChuckNorrisApi(retrofit: Retrofit): ChuckNorrisApi =
         retrofit.create(ChuckNorrisApi::class.java)
 
 }
